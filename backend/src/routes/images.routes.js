@@ -1,16 +1,16 @@
 const { Router } = require('express');
 const {
-  getAllImages, createNewImage, updateImage, deleteImage,
+  getAllImages, createImage, updateImage, deleteImage,
 } = require('../controllers/images.controllers.js');
 
 const router = Router();
 
 router.get('/', getAllImages);
 
-router.post('/', createNewImage);
+router.post('/', createImage);
 
-router.delete('/:id', deleteImage);
+router.delete('/:imageId', deleteImage);
 
-router.put('/:id', updateImage);
+router.put('/:imageId', updateImage);
 
 module.exports = router;
