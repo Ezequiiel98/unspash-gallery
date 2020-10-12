@@ -2,7 +2,6 @@ const Image = require('../models/Image');
 
 exports.getAllImages = async (req, res) => {
   const images = await Image.find();
-
   res.status(200).json(images);
 };
 

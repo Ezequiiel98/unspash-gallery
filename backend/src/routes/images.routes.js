@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const { body } = require('express-validator');
 
-const routeHelper = require('../helpers/routeHelper');
+const withTryCatch = require('../helpers/withTryCatch');
 
 const {
   getAllImages, createImage, updateImage, deleteImage,
@@ -9,15 +9,14 @@ const {
 
 const router = Router();
 
-const validateField = (field) => body(field).not().isEmpty().trim()
-  .escape();
+const validateField = (field) => body(field).not().isEmpty().trim();
 
-router.get('/', routeHelper(getAllImages));
+router.get('/', withTryCatch(getAllImages));
 
-router.post('/', [validateField('url'), validateField('label')], routeHelper(createImage));
+router.post('/', [validateField('url'), validateField('label').escape()], withTryCatch(createImage));
 
-router.put('/:imageId', [validateField('url'), validateField('label')], routeHelper(updateImage));
+router.put('/:imageId', [validateField('url'), validateField('label').escape()], withTryCatch(updateImage));
 
-router.delete('/:imageId', routeHelper(deleteImage));
+router.delete('/:imageId', withTryCatch(deleteImage));
 
 module.exports = router;

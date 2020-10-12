@@ -1,4 +1,4 @@
-const routeHelper = (cb) => (
+const withTryCatch = (cb) => (
   async (req, res) => {
     try {
       await cb(req, res);
@@ -26,4 +26,4 @@ const routeHelper = (cb) => (
   }
 );
 
-module.exports = routeHelper;
+module.exports = withTryCatch;
