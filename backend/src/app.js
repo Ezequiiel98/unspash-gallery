@@ -2,9 +2,9 @@ const cors = require('cors');
 const morgan = require('morgan');
 const helmet = require('helmet');
 const express = require('express');
+const imagesRoutes = require('./routes/images.routes.js');
 
 const app = express();
-const imagesRoutes = require('./routes/images.routes.js');
 
 app.set('port', process.env.PORT || 3000);
 
