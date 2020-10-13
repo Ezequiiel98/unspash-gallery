@@ -8,6 +8,12 @@ const userSchema = new Schema({
     unique: true,
     trim: true,
   },
+  username: {
+    type: String,
+    required: true,
+    unique: true,
+    trim: true,
+  },
   password: {
     type: String,
     required: true,
@@ -16,16 +22,17 @@ const userSchema = new Schema({
   versionKey: false,
 });
 
-userSchema.statics.encryptPassword = async (password) => {
-  const encryptedPassword = await bcrypt.hash(password, 10);
-
-  return encryptedPassword;
-};
-
 userSchema.statics.comparePasswords = async (password, receivePassword) => {
-  const matchPassword = await bcrypt.compare(password, receivePassword);
+  const matchPassword = await bcrypt.compare(receivePassword, password);
 
   return matchPassword;
 };
+
+userSchema.pre('save', async function (next) {
+  const encryptedPassword = await bcrypt.hash(this.password, 10);
+
+  this.password = encryptedPassword;
+  next();
+});
 
 module.exports = model('User', userSchema);

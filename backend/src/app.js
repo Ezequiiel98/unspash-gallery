@@ -2,8 +2,8 @@ const cors = require('cors');
 const morgan = require('morgan');
 const helmet = require('helmet');
 const express = require('express');
-const imagesRoutes = require('./routes/images.routes.js');
-const authRoutes = require('./routes/auth.routes.js');
+const imagesRoutes = require('./routes/images.routes');
+const authRoutes = require('./routes/auth.routes');
 
 const app = express();
 

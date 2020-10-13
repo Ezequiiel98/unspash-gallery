@@ -1,15 +1,29 @@
 const User = require('../models/Users');
 
 exports.singUp = async (req, res) => {
-  const { email, password } = req.body;
-  const encryptedPassword = await User.encryptPassword(password);
+  const { email, password, username } = req.body;
+
   const newUser = new User({
-    password: encryptedPassword,
+    password,
     email,
+    username,
   });
-  console.log(newUser);
+
+  await newUser.save();
+
+  res.status(201).json({ message: 'User created successfully' });
 };
 
-exports.login = (req, res) => {
-  res.json('login');
-}
+exports.login = async (req, res) => {
+  const { email, password } = req.body;
+
+  const user = await User.findOne({ email });
+
+  if (!user) return res.status(401).json({ message: 'User or password is incorrect' });
+
+  const matchPassword = await User.comparePasswords(user.password, password);
+
+  if (!matchPassword) return res.status(401).json({ message: 'Email or password is incorrect' });
+
+  res.json({ message: 'login' });
+};
