@@ -1,4 +1,5 @@
 const { Schema, model } = require('mongoose');
+
 const isURL = require('../helpers/isURL');
 
 const imageSchema = new Schema({
