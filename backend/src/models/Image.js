@@ -17,6 +17,10 @@ const imageSchema = new Schema({
       message: () => 'Path `url` is not a valid URL use an URL like this https://www.google.com',
     },
   },
+  userOwner: {
+    ref: 'User',
+    type: Schema.Types.ObjectId,
+  },
 }, {
   versionKey: false,
 });

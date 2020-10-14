@@ -1,19 +1,28 @@
 const Image = require('../models/Image');
 
 exports.getAllImages = async (req, res) => {
-  const images = await Image.find();
-  res.status(200).json(images);
+  const images = await Image.find().populate('userOwner').lean();
+  const imagesResponse = images.map(({
+    _id, url, label, userOwner,
+  }) => ({
+    _id, url, label, author: userOwner.username,
+  }));
+  res.status(200).json(imagesResponse);
 };
 
 exports.getMyImages = async (req, res) => {
-  res.json('my-images');
+  const { userId } = req.body;
+
+  const myImages = await Image.find({ userOwner: userId }, '-userOwner');
+  res.json(myImages);
 };
 
 exports.createImage = async (req, res) => {
-  const { url, label } = req.body;
-  const image = new Image({ url, label });
+  const { url, label, userId } = req.body;
+  const image = new Image({ url, label, userOwner: userId });
 
   await image.save();
+
   res.status(200).json({ message: 'new Image' });
 };
 
