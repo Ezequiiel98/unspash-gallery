@@ -2,6 +2,7 @@ const { Router } = require('express');
 const { body } = require('express-validator');
 
 const validateToken = require('../middlewares/validateToken');
+const isImageOwner = require('../middlewares/isImageOwner');
 const withTryCatch = require('../helpers/withTryCatch');
 
 const {
@@ -18,8 +19,8 @@ router.get('/my-images', validateToken, withTryCatch(getMyImages));
 
 router.post('/', [validateField('url'), validateField('label').escape(), validateToken], withTryCatch(createImage));
 
-router.put('/:imageId', [validateField('url'), validateField('label').escape(), validateToken], withTryCatch(updateImage));
+router.put('/:imageId', [validateField('url'), validateField('label').escape(), validateToken, isImageOwner], withTryCatch(updateImage));
 
-router.delete('/:imageId', validateToken, withTryCatch(deleteImage));
+router.delete('/:imageId', [validateToken, isImageOwner], withTryCatch(deleteImage));
 
 module.exports = router;

@@ -7,13 +7,14 @@ exports.getAllImages = async (req, res) => {
   }) => ({
     _id, url, label, author: userOwner.username,
   }));
+
   res.status(200).json(imagesResponse);
 };
 
 exports.getMyImages = async (req, res) => {
   const { userId } = req.body;
-
   const myImages = await Image.find({ userOwner: userId }, '-userOwner');
+
   res.json(myImages);
 };
 
