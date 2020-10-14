@@ -38,7 +38,6 @@ exports.updateImage = async (req, res) => {
 
 exports.deleteImage = async (req, res) => {
   const { imageId } = req.params;
-
   await Image.findByIdAndDelete(imageId);
 
   res.status(202).json({ message: 'Image deleted' });

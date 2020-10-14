@@ -2,6 +2,7 @@ const { Router } = require('express');
 const { body } = require('express-validator');
 
 const validateToken = require('../middlewares/validateToken');
+const confirmPassword = require('../middlewares/confirmPassword');
 const isImageOwner = require('../middlewares/isImageOwner');
 const withTryCatch = require('../helpers/withTryCatch');
 
@@ -21,6 +22,6 @@ router.post('/', [validateField('url'), validateField('label').escape(), validat
 
 router.put('/:imageId', [validateField('url'), validateField('label').escape(), validateToken, isImageOwner], withTryCatch(updateImage));
 
-router.delete('/:imageId', [validateToken, isImageOwner], withTryCatch(deleteImage));
+router.delete('/:imageId', [validateToken, isImageOwner, confirmPassword], withTryCatch(deleteImage));
 
 module.exports = router;
