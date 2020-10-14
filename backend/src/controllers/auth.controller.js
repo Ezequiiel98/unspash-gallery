@@ -1,4 +1,5 @@
-const User = require('../models/Users');
+const jwt = require('jsonwebtoken');
+const User = require('../models/User');
 
 exports.singUp = async (req, res) => {
   const { email, password, username } = req.body;
@@ -9,9 +10,11 @@ exports.singUp = async (req, res) => {
     username,
   });
 
-  await newUser.save();
+  const newUserSaved = await newUser.save();
 
-  res.status(201).json({ message: 'User created successfully' });
+  const token = jwt.sign({ id: newUserSaved._id }, process.env.SECRET_JWT);
+
+  res.status(201).json({ token, email, username });
 };
 
 exports.login = async (req, res) => {
@@ -25,5 +28,7 @@ exports.login = async (req, res) => {
 
   if (!matchPassword) return res.status(401).json({ message: 'Email or password is incorrect' });
 
-  res.json({ message: 'login' });
+  const token = jwt.sign({ id: user._id }, process.env.SECRET_JWT);
+
+  res.status(200).json({ username: user.username, token, email });
 };
