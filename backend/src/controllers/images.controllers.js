@@ -5,6 +5,10 @@ exports.getAllImages = async (req, res) => {
   res.status(200).json(images);
 };
 
+exports.getMyImages = async (req, res) => {
+  res.json('my-images');
+};
+
 exports.createImage = async (req, res) => {
   const { url, label } = req.body;
   const image = new Image({ url, label });

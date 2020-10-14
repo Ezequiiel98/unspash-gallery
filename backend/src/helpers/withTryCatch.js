@@ -16,6 +16,7 @@ const withTryCatch = (cb) => (
           message: 'Id not found',
         });
       } else {
+        console.log(error);
         res.status(500).json({
           status: 'error',
           name: 'Unknown Error',
