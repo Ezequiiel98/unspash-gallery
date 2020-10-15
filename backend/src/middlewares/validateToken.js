@@ -4,7 +4,7 @@ const User = require('../models/User');
 
 const validateToken = async (req, res, next) => {
   const token = req.headers['x-access-token'];
-
+  
   if (!token) return res.status(403).json({ message: 'You must send a token' });
 
   try {

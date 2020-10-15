@@ -5,18 +5,27 @@ const validateToken = require('../middlewares/validateToken');
 const confirmPassword = require('../middlewares/confirmPassword');
 const isImageOwner = require('../middlewares/isImageOwner');
 const iAlreadyLikeImage = require('../middlewares/iAlreadyLikeImage');
+const isLoggedIn = require('../middlewares/isLoggedIn');
 
 const withTryCatch = require('../helpers/withTryCatch');
 
 const {
-  getAllImages, createImage, updateImage, deleteImage, getMyImages, likeImage,
+  getAllImages,
+  createImage,
+  updateImage,
+  deleteImage,
+  getMyImages,
+  likeImage,
+  getAllImagesUserLoggedIn,
 } = require('../controllers/images.controllers.js');
 
 const router = Router();
 
 const validateField = (field) => body(field).not().isEmpty().trim();
 
-router.get('/', withTryCatch(getAllImages));
+router.get('/', isLoggedIn, withTryCatch(getAllImages));
+
+router.get('/user-authenticated', validateToken, withTryCatch(getAllImagesUserLoggedIn));
 
 router.get('/my-images', validateToken, withTryCatch(getMyImages));
 

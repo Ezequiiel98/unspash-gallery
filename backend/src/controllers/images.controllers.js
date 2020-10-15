@@ -9,6 +9,19 @@ exports.getAllImages = async (req, res) => {
   res.status(200).json(imagesResponse);
 };
 
+exports.getAllImagesUserLoggedIn = async (req, res) => {
+  const { userId } = req.body;
+  const images = await Image.find().populate('userOwner').lean();
+  const imagesResponse = images.map(({ userOwner, likes, ...image }) => ({
+    author: userOwner.username,
+    likes: likes.length,
+    iLike: JSON.stringify(likes).includes(userId),
+    ...image,
+  }));
+
+  res.status(200).json(imagesResponse);
+};
+
 exports.getMyImages = async (req, res) => {
   const { userId } = req.body;
   const myImages = await Image.find({ userOwner: userId }).populate('userOwner').lean();
