@@ -21,6 +21,12 @@ const imageSchema = new Schema({
     ref: 'User',
     type: Schema.Types.ObjectId,
   },
+  likes: [
+    {
+      ref: 'User',
+      type: Schema.Types.ObjectId,
+    },
+  ],
 }, {
   versionKey: false,
 });

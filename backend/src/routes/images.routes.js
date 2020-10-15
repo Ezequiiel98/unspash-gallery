@@ -4,10 +4,12 @@ const { body } = require('express-validator');
 const validateToken = require('../middlewares/validateToken');
 const confirmPassword = require('../middlewares/confirmPassword');
 const isImageOwner = require('../middlewares/isImageOwner');
+const iAlreadyLikeImage = require('../middlewares/iAlreadyLikeImage');
+
 const withTryCatch = require('../helpers/withTryCatch');
 
 const {
-  getAllImages, createImage, updateImage, deleteImage, getMyImages,
+  getAllImages, createImage, updateImage, deleteImage, getMyImages, likeImage,
 } = require('../controllers/images.controllers.js');
 
 const router = Router();
@@ -23,5 +25,7 @@ router.post('/', [validateField('url'), validateField('label').escape(), validat
 router.put('/:imageId', [validateField('url'), validateField('label').escape(), validateToken, isImageOwner], withTryCatch(updateImage));
 
 router.delete('/:imageId', [validateToken, isImageOwner, confirmPassword], withTryCatch(deleteImage));
+
+router.post('/like/:imageId', [validateToken, iAlreadyLikeImage], withTryCatch(likeImage));
 
 module.exports = router;
