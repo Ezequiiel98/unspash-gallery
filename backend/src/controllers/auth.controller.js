@@ -22,7 +22,7 @@ exports.login = async (req, res) => {
 
   const user = await User.findOne({ email });
 
-  if (!user) return res.status(401).json({ message: 'User or password is incorrect' });
+  if (!user) return res.status(401).json({ message: 'Email or password is incorrect' });
 
   const matchPassword = await User.comparePasswords(user.password, password);
 
