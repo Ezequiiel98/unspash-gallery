@@ -1,9 +1,6 @@
 import React from 'react';
+import Login from '../../screens/Login';
 
-function App() {
-  return (
-    <h1>app</h1>
-  );
-}
+const App: React.FC = () => <Login />;
 
 export default App;
