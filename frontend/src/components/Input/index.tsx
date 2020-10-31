@@ -1,40 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from '@emotion/styled';
 
-const ContainerInput = styled('div')`
-  padding: 20px 0 10px 0;
-`;
-
-const Label = styled('label')`
-  display: block;
-  margin-bottom: 10px;
-  color: #fff;
-  font-size: 18px;
-  font-weight: bold;
-  `;
-
-const InputStyle = styled('input')`
-  display: block;
-  min-width: 100%;
-  padding: 15px;
-  border: 2px solid #fff;
-  color: #fff;
-  border-radius: 15px;
-  background-color: transparent;
-  outline: none;
-  font-size: 16px;
-  transition: background-color .5s ease;
-  `;
-
-const ErrorMessage = styled('p')`
-  font-size: 18px;
-  padding: 5px 10px;
-  margin: 8px 0 0 0;
-  color: #fff;
-  background-color: #f44336;
-  border-radius: 10px;
-  `;
+import {
+  ContainerInput,
+  Label,
+  InputStyle,
+  ErrorMessage,
+} from './styles';
 
 type InputProps = {
   label: string;
