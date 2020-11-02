@@ -5,7 +5,7 @@
 * ### [Image Routes](#image-routes)
 
 <a name="auth-routes"></a>
-## Auth routes
+# Auth routes
 
 * [/sign-up](#sign-up)
 
@@ -18,7 +18,7 @@
 }
 ``` 
 <a name="sign-up"></a>
-# /sign-up
+## /sign-up
 * ### Method:  
   POST
 * ### URL Params 
@@ -62,7 +62,7 @@
            } 
         ```
 <a name="login"></a>
-# /login
+## /login
 * ### Method:  
   POST
 * ### URL Params 
