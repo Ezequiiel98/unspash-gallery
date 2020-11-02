@@ -105,14 +105,14 @@
 }
 ``` 
 * [/api/images](#images)
-* [/api/images/:imageId](#images)
+* [/api/images/:imageId](#images-with-id)
 * [/api/images/my-images](#my-images)
 * [/api/images/like/:imageId](#sign-up)
 
 <a name="images"></a>
 ## /api/images
-* [without x-access-token](#without-token)
-* [with x-access-token](#with-token)
+* [Without x-access-token](#without-token)
+* [With x-access-token](#with-token)
 
 <a name="without-token"></a>
 
@@ -152,9 +152,12 @@
 
 ### With x-access-token
 * ### Method:  
-  GET
+  [GET](#get-images-token) | [POST](#post-images-token)
 * ### URL Params 
   none
+
+<a name="get-images-token"></a>
+## GET
 * ### Body Parameters:
   none
 * ### Success Response:
@@ -198,4 +201,172 @@
            } 
         ```
 
+<a name="post-images-token"></a>
+## POST
+* ### Body Parameters:
+  ```json 
+  {
+    "url": "https://your-url-img.com",
+    "label": "cat image"
+  } 
+  ```
+* ### Success Response:
+  * ***Code:*** `200 OK`
+  *  ***Content:***
+ 
+        ```json
+          {
+            "message": "new image"
+          }
+      ```
+* ### Error Response:
+     * ***Code:*** `401 Unauthorized`
+    *  ***Content:***
+        ```json
+           {
+             "message": "Invalid token"
+           } 
+        ```
+    ### OR 
+    * ***Code:*** `403 Forbidden`
+    * ***Content:***
+        ```json 
+           {
+            "message": "You must send a token"
+           } 
+        ```
+<a name="images-with-id"></a>
+## /api/images/:imageId
+* ### Method:  
+  [PUT](#put-image) | [DELETE](#delete-image)
+* ### URL Params 
+  * ### Required
+     imageId
+
+<a name="put-image"></a>
+## PUT
+* ### Body Parameters:
+  ```json 
+   {
+     "label": "dog image 2",
+     "url": "https://www.your-url.com"
+   }
+  ```
+* ### Success Response:
+  * ***Code:*** `200 OK`
+  *  ***Content:***
+ 
+        ```json
+           {
+               "message": "Image updated"
+           }
+      ```
+* ### Error Response:
+     * ***Code:*** `401 Unauthorized`
+    *  ***Content:***
+        ```json
+           {
+            "message": "Invalid token"
+           } 
+        ```
+    ### OR 
+    * ***Code:*** `403 Forbidden`
+    * ***Content:***
+        ```json 
+           {
+            "message": "You don't have permission"
+          } 
+        ```
+    
+    ### OR 
+    * ***Code:*** `403 Forbidden`
+    * ***Content:***
+        ```json 
+           {
+              "message": "You must send a token"
+           } 
+        ```
+    ### OR 
+    * ***Code:*** `404 Not Found`
+    * ***Content:***
+        ```json 
+           {
+            "message": "User not found"
+           } 
+        ```
+     ### OR 
+    * ***Code:*** `404 Not Found`
+    * ***Content:***
+        ```json 
+           {
+            "message": "Image not found"
+           } 
+        ```
+
+<a name="delete-image"></a>
+## DELETE
+* ### Body Parameters:
+  ```json 
+  {
+    "password": "juan123!1"
+  } 
+  ```
+* ### Success Response:
+  * ***Code:*** `200 OK`
+  *  ***Content:***
+ 
+        ```json
+          {
+            "message": "Image deleted"
+          }
+      ```
+* ### Error Response:
+     * ***Code:*** `401 Unauthorized`
+    *  ***Content:***
+        ```json
+           {
+            "message": "Invalid token"
+           } 
+        ```
+    ### OR 
+     * ***Code:*** `401 Unauthorized`
+    *  ***Content:***
+        ```json
+           {
+            "message": "Incorrect password"
+           } 
+        ```
+    ## OR
+    * ***Code:*** `403 Forbidden`
+    * ***Content:***
+        ```json 
+           {
+            "message": "You don't have permission"
+          } 
+        ```
+    
+    ### OR 
+    * ***Code:*** `403 Forbidden`
+    * ***Content:***
+        ```json 
+           {
+              "message": "You must send a token"
+           } 
+        ```
+    ### OR 
+    * ***Code:*** `404 Not Found`
+    * ***Content:***
+        ```json 
+           {
+            "message": "User not found"
+           } 
+        ```
+     ### OR 
+    * ***Code:*** `404 Not Found`
+    * ***Content:***
+        ```json 
+           {
+            "message": "Image not found"
+           } 
+        ```
 
