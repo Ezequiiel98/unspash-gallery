@@ -107,7 +107,7 @@
 * [/api/images](#images)
 * [/api/images/:imageId](#images-with-id)
 * [/api/images/my-images](#my-images)
-* [/api/images/like/:imageId](#sign-up)
+* [/api/images/like/:imageId](#like-image)
 
 <a name="images"></a>
 ## /api/images
@@ -139,7 +139,7 @@
               {
                 "_id": "5f87da2234dec849387ae628",
                 "url": "https://www.url-img.com/",
-                "label": "juanchito actualizanding atr proo",
+                "label": "Cat image"",
                 "author": "carla",
                 "likes": 0
               }
@@ -148,7 +148,7 @@
 * ### Error Response:
     none
 
-<a name="without-token"></a>
+<a name="with-token"></a>
 
 ### With x-access-token
 * ### Method:  
@@ -171,16 +171,16 @@
                 "url": "https://www.url-img.com/",
                 "label": "Dog image",
                 "author": "juan123",
-                "likes": 3
-                "iLike": true,
+                "likes": 3,
+                "iLike": true
              },
              {
                "_id": "5f87da2234dec849387ae628",
                "url": "https://www.url-img.com/",
-               "label": "juanchito actualizanding atr proo",
+               "label": "Cat image",
                "author": "carla",
-               "likes": 0
-               "iLike": false,
+               "likes": 0,
+               "iLike": false
               }
             ]
       ```
@@ -369,4 +369,106 @@
             "message": "Image not found"
            } 
         ```
+
+<a name="my-images"></a>
+## /api/images/my-images
+* ### Method:  
+  GET
+* ### URL Params 
+ none
+* ### Body Parameters:
+   none
+  
+* ### Success Response:
+  * ***Code:*** `200 OK`
+  *  ***Content:***
+ 
+        ```json
+           [
+             {
+                "_id": "5f87d24e5c163e3b8cbeec9a",
+                "url": "https://www.url-img.com/",
+                "label": "Dog image",
+                "author": "juan123",
+                "likes": 3,
+                "iLike": true
+             },
+             {
+               "_id": "5f87da2234dec849387ae628",
+               "url": "https://www.url-img.com/",
+               "label": "Cat image",
+               "author": "carla",
+               "likes": 0,
+               "iLike": false
+              }
+            ]
+      ```
+* ### Error Response:
+     * ***Code:*** `401 Unauthorized`
+    *  ***Content:***
+        ```json
+           {
+            "message": "Invalid token"
+           } 
+        ```
+    ### OR 
+    * ***Code:*** `404 Not Found`
+    * ***Content:***
+        ```json 
+           {
+            "message": "User not found"
+           } 
+        ```
+
+<a name="like-image"></a>
+## /api/like/:imageId
+* ### Method:  
+  POST
+* ### URL Params 
+ * #### Required
+    imageId
+* ### Body Parameters:
+   none
+
+* ### Success Response:
+  * ***Code:*** `200 OK`
+  *  ***Content:***
+        ```json
+          {
+            "message": "Like"
+          }
+      ```
+    ### OR 
+    
+     ```json
+          {
+            "message": "Dislike"
+          }
+     ```
+      
+* ### Error Response:
+     * ***Code:*** `401 Unauthorized`
+    *  ***Content:***
+        ```json
+           {
+            "message": "Invalid token"
+           } 
+        ```
+    ### OR 
+    * ***Code:*** `404 Not Found`
+    * ***Content:***
+        ```json 
+           {
+            "message": "User not found"
+           } 
+        ```
+    ### OR 
+    * ***Code:*** `404 Not Found`
+    * ***Content:***
+        ```json 
+           {
+            "message": "Image not found"
+           } 
+        ```
+    
 
