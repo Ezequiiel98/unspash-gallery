@@ -139,7 +139,7 @@
               {
                 "_id": "5f87da2234dec849387ae628",
                 "url": "https://www.url-img.com/",
-                "label": "Cat image"",
+                "label": "Cat image",
                 "author": "carla",
                 "likes": 0
               }
@@ -375,7 +375,7 @@
 * ### Method:  
   GET
 * ### URL Params 
- none
+   none
 * ### Body Parameters:
    none
   
@@ -425,8 +425,8 @@
 * ### Method:  
   POST
 * ### URL Params 
- * #### Required
-    imageId
+   * #### Required
+      imageId
 * ### Body Parameters:
    none
 
