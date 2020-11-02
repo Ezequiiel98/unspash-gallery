@@ -25,15 +25,15 @@ const validateField = (field) => body(field).not().isEmpty().trim();
 
 router.get('/', isLoggedIn, withTryCatch(getAllImages));
 
-router.get('/user-authenticated', validateToken, withTryCatch(getAllImagesUserLoggedIn));
-
-router.get('/my-images', validateToken, withTryCatch(getMyImages));
-
 router.post('/', [validateField('url'), validateField('label').escape(), validateToken], withTryCatch(createImage));
 
 router.put('/:imageId', [validateField('url'), validateField('label').escape(), validateToken, isImageOwner], withTryCatch(updateImage));
 
 router.delete('/:imageId', [validateToken, isImageOwner, confirmPassword], withTryCatch(deleteImage));
+
+router.get('/user-authenticated', validateToken, withTryCatch(getAllImagesUserLoggedIn));
+
+router.get('/my-images', validateToken, withTryCatch(getMyImages));
 
 router.post('/like/:imageId', [validateToken, iAlreadyLikeImage], withTryCatch(likeImage));
 

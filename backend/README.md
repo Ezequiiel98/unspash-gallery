@@ -2,14 +2,14 @@
 ---
 # Endpoints
 * ### [Auth Routes](#auth-routes)
-* ### [Image Routes](#image-routes)
+* ### [Images Routes](#image-routes)
 
 <a name="auth-routes"></a>
-# Auth routes
+# Auth routes `/api/auth`
 
-* [/sign-up](#sign-up)
-
+* [/api/auth/sign-up](#sign-up)
 * [/login](#login)
+
 #### Request headers:
 ```json
 {
@@ -43,7 +43,7 @@
            } 
       ```
 * ### Error Response:
- * ***Code:*** `409 Conflict`
+     * ***Code:*** `409 Conflict`
   *  ***Content:***
         ```json
             {
@@ -86,11 +86,116 @@
            } 
       ```
 * ### Error Response:
- * ***Code:*** `401 Unauthorized`
+  * ***Code:*** `401 Unauthorized`
   *  ***Content:***
         ```json
             {
                "message":"Email or password is incorrect"
             } 
         ```
-       
+
+<a name="image-routes"></a>
+# Images routes `/api/images`
+#### Request headers:
+```json
+{
+  "Content-Type": "application/json",
+  "Accept": "application/json",
+  "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0b3B0YWwuY29tIiwiZXhwIjoxNDI2NDIwODAwLCJodHRwOi8vdG9wdGFsLmNvbS9qd3RfY2xhaW1zL2lzX2FkbWluIjp0cnVlLCJjb21wYW55IjoiVG9wdGFsIiwiYXdlc29tZSI6dHJ1ZX0.yRQYnWzskCZUxPwaQupWkiUzKELZ49eM7oWxAQK_ZXw"
+}
+``` 
+* [/api/images](#images)
+* [/api/images/:imageId](#images)
+* [/api/images/my-images](#my-images)
+* [/api/images/like/:imageId](#sign-up)
+
+<a name="images"></a>
+## /api/images
+* [without x-access-token](#without-token)
+* [with x-access-token](#with-token)
+
+<a name="without-token"></a>
+
+### Without x-access-token
+* ### Method:  
+  GET
+* ### URL Params 
+  none
+* ### Body Parameters:
+  none
+* ### Success Response:
+  * ***Code:*** `200 OK`
+  *  ***Content:***
+ 
+        ```json
+            [
+              {
+                "_id": "5f87d24e5c163e3b8cbeec9a",
+                "url": "https://www.url-img.com/",
+                "label": "Dog image",
+                "author": "juan123",
+                "likes": 3
+              },
+              {
+                "_id": "5f87da2234dec849387ae628",
+                "url": "https://www.url-img.com/",
+                "label": "juanchito actualizanding atr proo",
+                "author": "carla",
+                "likes": 0
+              }
+            ]
+      ```
+* ### Error Response:
+    none
+
+<a name="without-token"></a>
+
+### With x-access-token
+* ### Method:  
+  GET
+* ### URL Params 
+  none
+* ### Body Parameters:
+  none
+* ### Success Response:
+  * ***Code:*** `200 OK`
+  *  ***Content:***
+ 
+        ```json
+           [
+             {
+                "_id": "5f87d24e5c163e3b8cbeec9a",
+                "url": "https://www.url-img.com/",
+                "label": "Dog image",
+                "author": "juan123",
+                "likes": 3
+                "iLike": true,
+             },
+             {
+               "_id": "5f87da2234dec849387ae628",
+               "url": "https://www.url-img.com/",
+               "label": "juanchito actualizanding atr proo",
+               "author": "carla",
+               "likes": 0
+               "iLike": false,
+              }
+            ]
+      ```
+* ### Error Response:
+     * ***Code:*** `401 Unauthorized`
+    *  ***Content:***
+        ```json
+           {
+            "message": "Invalid token"
+           } 
+        ```
+    ### OR 
+    * ***Code:*** `404 Not Found`
+    * ***Content:***
+        ```json 
+           {
+            "message": "User not found"
+           } 
+        ```
+
+
