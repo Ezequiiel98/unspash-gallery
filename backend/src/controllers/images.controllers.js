@@ -26,7 +26,10 @@ exports.getMyImages = async (req, res) => {
   const { userId } = req.body;
   const myImages = await Image.find({ userOwner: userId }).populate('userOwner').lean();
   const myImagesResponse = myImages.map(({ userOwner, likes, ...image }) => ({
-    ...image, author: userOwner.username, likes: likes.length,
+    author: userOwner.username,
+    likes: likes.length,
+    iLike: JSON.stringify(likes).includes(userId),
+    ...image,
   }));
 
   res.json(myImagesResponse);
